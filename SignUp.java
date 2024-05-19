@@ -1,73 +1,145 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.stream.Stream;
 
-class SignUp extends JFrame {
-    JLabel CreateAs, MeterNumber, UserName, Name, Password;
+class SignUp extends JFrame implements ActionListener
+{
+    JLabel CreateAs, MeterNumber, EmployerId, UserName, Name, Password;
     Choice loginAsChoice;
-    JTextField MeterTextField, UserNameTextField, NameTextField, PasswordTextField;
+    JTextField MeterTextField, EmployerIdTextField, UserNameTextField, NameTextField;
+    JPasswordField PasswordTextField;
     JButton create, back;
 
     SignUp() 
     {
         super("Signup");
 
+        ImageIcon CreateAsIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/sign-up.png"));
+        Image CreateAsImg = CreateAsIcon.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
+        ImageIcon CreateAsIcon1 = new ImageIcon(CreateAsImg);
+        JLabel CreateAsLabel = new JLabel(CreateAsIcon1);
+        CreateAsLabel.setBounds(120, 10, 150, 150);
+        add(CreateAsLabel);
+
         CreateAs = new JLabel("Create As: ");
-        CreateAs.setBounds(30, 140, 125, 20);
+        CreateAs.setBounds(30, 160, 125, 20);
         add(CreateAs);
 
         loginAsChoice = new Choice();
         loginAsChoice.add("Customer");
         loginAsChoice.add("Admin");
-        loginAsChoice.setBounds(170, 140, 150, 20);
+        loginAsChoice.setBounds(170, 160, 150, 20);
         add(loginAsChoice);
 
-        UserName = new JLabel("User Name: ");
-        UserName.setBounds(30, 180, 125, 20);
-        add(UserName);
-
-        UserNameTextField = new JTextField();
-        UserNameTextField.setBounds(170, 180, 150, 20);
-        add(UserNameTextField);
-
         Name = new JLabel("Name: ");
-        Name.setBounds(30, 220, 125, 20);
+        Name.setBounds(30, 200, 125, 20);
         add(Name);
 
         NameTextField = new JTextField();
-        NameTextField.setBounds(170, 220, 150, 20);
+        NameTextField.setBounds(170, 200, 150, 20);
         add(NameTextField);
 
+        UserName = new JLabel("User Name: ");
+        UserName.setBounds(30, 240, 125, 20);
+        add(UserName);
+
+        UserNameTextField = new JTextField();
+        UserNameTextField.setBounds(170, 240, 150, 20);
+        add(UserNameTextField);
+
         MeterNumber = new JLabel("Meter Number: ");
-        MeterNumber.setBounds(30, 260, 125, 20);
+        MeterNumber.setBounds(30, 280, 125, 20);
         add(MeterNumber);
 
         MeterTextField = new JTextField();
-        MeterTextField.setBounds(170, 260, 150, 20);
+        MeterTextField.setBounds(170, 280, 150, 20);
         add(MeterTextField);
 
+        EmployerId = new JLabel("Employer Id: ");
+        EmployerId.setBounds(30, 280, 125, 20);
+        add(EmployerId);
+
+        EmployerIdTextField = new JTextField();
+        EmployerIdTextField.setBounds(170, 280, 150, 20);
+        add(EmployerIdTextField);
+
         Password = new JLabel("Password: ");
-        Password.setBounds(30, 300, 125, 20);
+        Password.setBounds(30, 320, 125, 20);
         add(Password);
 
-        PasswordTextField = new JTextField();
-        PasswordTextField.setBounds(170, 300, 150, 20);
+        PasswordTextField = new JPasswordField();
+        PasswordTextField.setBounds(170, 320, 150, 20);
         add(PasswordTextField);
 
+        // Initially, hide EmployerId fields
+        EmployerId.setVisible(false);
+        EmployerIdTextField.setVisible(false);
+
+        loginAsChoice.addItemListener(new ItemListener() 
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e) 
+            {
+                String user = loginAsChoice.getSelectedItem();
+                if (user.equals("Admin")) 
+                {
+                    MeterNumber.setVisible(false);
+                    MeterTextField.setVisible(false);
+                    EmployerId.setVisible(true);
+                    EmployerIdTextField.setVisible(true);
+                } 
+                else 
+                {
+                    MeterNumber.setVisible(true);
+                    MeterTextField.setVisible(true);
+                    EmployerId.setVisible(false);
+                    EmployerIdTextField.setVisible(false);
+                }
+            }
+        });
+
         create = new JButton("Create");
-        create.setBounds(30, 350, 100, 30);
+        create.setBounds(30, 370, 100, 30);
+        create.setBackground(Color.YELLOW);
+        create.addActionListener(this);
         add(create);
 
         back = new JButton("Back");
-        back.setBounds(150, 350, 100, 30);
+        back.setBounds(170, 370, 100, 30);
+        back.setBackground(Color.BLACK);
+        back.setForeground(Color.WHITE);
+        back.addActionListener(this);
         add(back);
 
-        setSize(400, 500);
+        setSize(400, 450);
         setResizable(false);
         setLocation(500, 180);
         setTitle("Sign Up");
         setLayout(null);
         setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource() == create)
+        {
+            String sLoginAs = loginAsChoice.getSelectedItem();
+            String sName = NameTextField.getText();
+            String sUserName = UserNameTextField.getText();
+            // String sPassword = PasswordTextField.getPassword();
+            String sMeterNumber = MeterTextField.getText();
+        }
+        else if(e.getSource() == back)
+        {
+            setVisible(false);
+            new Login();
+        }
     }
 
     public static void main(String[] args) {
