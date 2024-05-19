@@ -1,150 +1,120 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.stream.Stream;
 
-class SignUp extends JFrame implements ActionListener
+class Main extends JFrame
 {
-    JLabel CreateAs, MeterNumber, EmployerId, UserName, Name, Password;
-    Choice loginAsChoice;
-    JTextField MeterTextField, EmployerIdTextField, UserNameTextField, NameTextField;
-    JPasswordField PasswordTextField;
-    JButton create, back;
 
-    SignUp() 
+    Main()
     {
-        super("Signup");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        ImageIcon CreateAsIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/sign-up.png"));
-        Image CreateAsImg = CreateAsIcon.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
-        ImageIcon CreateAsIcon1 = new ImageIcon(CreateAsImg);
-        JLabel CreateAsLabel = new JLabel(CreateAsIcon1);
-        CreateAsLabel.setBounds(120, 10, 150, 150);
-        add(CreateAsLabel);
+        ImageIcon EbsIco = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/ebs0.jpg"));
+        Image EbsImg = EbsIco.getImage().getScaledInstance(1500, 830, Image.SCALE_DEFAULT);
+        ImageIcon EbsIco1 = new ImageIcon(EbsImg);
+        JLabel EbsLabel = new JLabel(EbsIco1);
+        add(EbsLabel);
 
-        CreateAs = new JLabel("Create As: ");
-        CreateAs.setBounds(30, 160, 125, 20);
-        add(CreateAs);
+        JMenuBar menuBer = new JMenuBar();
+        setJMenuBar(menuBer);
 
-        loginAsChoice = new Choice();
-        loginAsChoice.add("Customer");
-        loginAsChoice.add("Admin");
-        loginAsChoice.setBounds(170, 160, 150, 20);
-        add(loginAsChoice);
+        JMenu menu = new JMenu("Menu");
+        menu.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        menuBer.add(menu);
 
-        Name = new JLabel("Name: ");
-        Name.setBounds(30, 200, 125, 20);
-        add(Name);
+        JMenuItem newCustomer = new JMenuItem("New Customer");
+        newCustomer.setFont(new Font("Courier New", Font.PLAIN, 14));
+        ImageIcon newCustomIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/newcustomer.png"));
+        Image newCustImg = newCustomIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        newCustomer.setIcon(new ImageIcon(newCustImg));
+        menu.add(newCustomer);
 
-        NameTextField = new JTextField();
-        NameTextField.setBounds(170, 200, 150, 20);
-        add(NameTextField);
+        JMenuItem customerdetails = new JMenuItem("Customer Details");
+        customerdetails.setFont(new Font("monospaced", Font.PLAIN, 14));
+        ImageIcon detailsIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/customerdetails.png"));
+        Image detailsImg = detailsIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        customerdetails.setIcon(new ImageIcon(detailsImg));
+        menu.add(customerdetails);
 
-        UserName = new JLabel("User Name: ");
-        UserName.setBounds(30, 240, 125, 20);
-        add(UserName);
+        JMenuItem depositdetails = new JMenuItem("Deposit Details ");
+        depositdetails.setFont(new Font("monospaced", Font.PLAIN, 14));
+        ImageIcon depositIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/depositdetails.png"));
+        Image depositImg = depositIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        depositdetails.setIcon(new ImageIcon(depositImg));
+        menu.add(depositdetails);
 
-        UserNameTextField = new JTextField();
-        UserNameTextField.setBounds(170, 240, 150, 20);
-        add(UserNameTextField);
+        JMenuItem calculatebill = new JMenuItem("Calculate Bill ");
+        calculatebill.setFont(new Font("monospaced", Font.PLAIN, 14));
+        ImageIcon calculateBillIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/calculatorbills.png"));
+        Image calculateBillImg = calculateBillIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        calculatebill.setIcon(new ImageIcon(calculateBillImg));
+        menu.add(calculatebill);
 
-        MeterNumber = new JLabel("Meter Number: ");
-        MeterNumber.setBounds(30, 280, 125, 20);
-        add(MeterNumber);
+        JMenu info = new JMenu("Infromation");
+        info.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        menuBer.add(info);
+        
+        JMenuItem upInfo = new JMenuItem("Updatet Infromation");
+        upInfo.setFont(new Font("Courier New", Font.PLAIN, 14));
+        ImageIcon upInfoIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/refresh.png"));
+        Image upInfoImg = upInfoIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        upInfo.setIcon(new ImageIcon(upInfoImg));
+        info.add(upInfo);
 
-        MeterTextField = new JTextField();
-        MeterTextField.setBounds(170, 280, 150, 20);
-        add(MeterTextField);
+        JMenuItem viewInfo = new JMenuItem("View Infromation");
+        viewInfo.setFont(new Font("Courier New", Font.PLAIN, 14));
+        ImageIcon viewInfoIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/information.png"));
+        Image viewInfoImg = viewInfoIcon.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+        viewInfo.setIcon(new ImageIcon(viewInfoImg));
+        info.add(viewInfo);
 
-        EmployerId = new JLabel("Employer Id: ");
-        EmployerId.setBounds(30, 280, 125, 20);
-        add(EmployerId);
+        JMenu user = new JMenu("User");
+        user.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        menuBer.add(user);
 
-        EmployerIdTextField = new JTextField();
-        EmployerIdTextField.setBounds(170, 280, 150, 20);
-        add(EmployerIdTextField);
+        JMenuItem paybill =new JMenuItem("Pay Bill");
+        paybill.setFont(new Font("Courier New",Font.PLAIN,14));
+        ImageIcon paybillIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/pay.png"));
+        Image paybillImg = paybillIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        paybill.setIcon(new ImageIcon(paybillImg));
+        user.add(paybill);
 
-        Password = new JLabel("Password: ");
-        Password.setBounds(30, 320, 125, 20);
-        add(Password);
+        JMenuItem billdetails =new JMenuItem("Bill Details");
+        billdetails.setFont(new Font("Courier New",Font.PLAIN,14));
+        ImageIcon billdetailsImg = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/detail.png"));
+        Image billdetailsImage = billdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        billdetails.setIcon(new ImageIcon(billdetailsImage));
+        user.add(billdetails);
 
-        PasswordTextField = new JPasswordField();
-        PasswordTextField.setBounds(170, 320, 150, 20);
-        add(PasswordTextField);
+        JMenu bill = new JMenu("Bill");
+        bill.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        menuBer.add(bill);
 
-        // Initially, hide EmployerId fields
-        EmployerId.setVisible(false);
-        EmployerIdTextField.setVisible(false);
+        JMenuItem genBill =new JMenuItem("Generate Bill");
+        genBill.setFont(new Font("Courier New",Font.PLAIN,14));
+        ImageIcon genBillIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/bill.png"));
+        Image genBillImg = genBillIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        genBill.setIcon(new ImageIcon(genBillImg));
+        bill.add(genBill);
 
-        loginAsChoice.addItemListener(new ItemListener() 
-        {
-            @Override
-            public void itemStateChanged(ItemEvent e) 
-            {
-                String user = loginAsChoice.getSelectedItem();
-                if (user.equals("Admin")) 
-                {
-                    MeterNumber.setVisible(false);
-                    MeterTextField.setVisible(false);
-                    EmployerId.setVisible(true);
-                    EmployerIdTextField.setVisible(true);
-                } 
-                else 
-                {
-                    MeterNumber.setVisible(true);
-                    MeterTextField.setVisible(true);
-                    EmployerId.setVisible(false);
-                    EmployerIdTextField.setVisible(false);
-                }
-            }
-        });
+        JMenu utility = new JMenu("Utility");
+        utility.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        menuBer.add(utility);
 
-        create = new JButton("Create");
-        create.setBounds(30, 370, 100, 30);
-        create.setBackground(Color.YELLOW);
-        create.addActionListener(this);
-        add(create);
+        JMenuItem calculator =new JMenuItem("Calculator");
+        calculator.setFont(new Font("Courier New",Font.PLAIN,14));
+        ImageIcon calculatorIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/calculator.png"));
+        Image calculatorImg = calculatorIcon.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        calculator.setIcon(new ImageIcon(calculatorImg));
+        utility.add(calculator);
 
-        back = new JButton("Back");
-        back.setBounds(170, 370, 100, 30);
-        back.setBackground(Color.BLACK);
-        back.setForeground(Color.WHITE);
-        back.addActionListener(this);
-        add(back);
-
-        setSize(400, 450);
+        setLayout(new FlowLayout());
+        setTitle("Pariseba");
         setResizable(false);
-        setLocation(500, 180);
-        setTitle("Sign Up");
-        setLayout(null);
         setVisible(true);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e)
+    public static void main(String[] args)
     {
-        if(e.getSource() == create)
-        {
-            /*
-            String sLoginAs = loginAsChoice.getSelectedItem();
-            String sName = NameTextField.getText();
-            String sUserName = UserNameTextField.getText();
-            String sPassword = PasswordTextField.getPassword();
-            String sMeterNumber = MeterTextField.getText();
-            */
-        }
-        else if(e.getSource() == back)
-        {
-            setVisible(false);
-            new Login();
-        }
-    }
-
-    public static void main(String[] args) {
-        new SignUp();
-    }
+        new Main();
+    }    
 }
