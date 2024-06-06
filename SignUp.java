@@ -4,9 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.stream.Stream;
 
-class SignUp extends JFrame implements ActionListener
+class SignUp extends JFrame implements ActionListener 
 {
     JLabel CreateAs, MeterNumber, EmployerId, UserName, Name, Password;
     Choice loginAsChoice;
@@ -16,8 +15,6 @@ class SignUp extends JFrame implements ActionListener
 
     SignUp() 
     {
-        super("Signup");
-
         ImageIcon CreateAsIcon = new ImageIcon(ClassLoader.getSystemResource("ImagePariseba/sign-up.png"));
         Image CreateAsImg = CreateAsIcon.getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT);
         ImageIcon CreateAsIcon1 = new ImageIcon(CreateAsImg);
@@ -43,7 +40,7 @@ class SignUp extends JFrame implements ActionListener
         NameTextField.setBounds(170, 200, 150, 20);
         add(NameTextField);
 
-        UserName = new JLabel("User Name: ");
+        UserName = new JLabel("Username: ");
         UserName.setBounds(30, 240, 125, 20);
         add(UserName);
 
@@ -68,22 +65,19 @@ class SignUp extends JFrame implements ActionListener
         add(EmployerIdTextField);
 
         Password = new JLabel("Password: ");
-        Password.setBounds(30, 320, 125, 20);
+        Password.setBounds(30, 360, 125, 20);
         add(Password);
 
         PasswordTextField = new JPasswordField();
-        PasswordTextField.setBounds(170, 320, 150, 20);
+        PasswordTextField.setBounds(170, 360, 150, 20);
         add(PasswordTextField);
 
-        // Initially, hide EmployerId fields
         EmployerId.setVisible(false);
         EmployerIdTextField.setVisible(false);
 
-        loginAsChoice.addItemListener(new ItemListener() 
-        {
+        loginAsChoice.addItemListener(new ItemListener() {
             @Override
-            public void itemStateChanged(ItemEvent e) 
-            {
+            public void itemStateChanged(ItemEvent e) {
                 String user = loginAsChoice.getSelectedItem();
                 if (user.equals("Admin")) 
                 {
@@ -103,39 +97,58 @@ class SignUp extends JFrame implements ActionListener
         });
 
         create = new JButton("Create");
-        create.setBounds(30, 370, 100, 30);
+        create.setBounds(30, 400, 100, 30);
         create.setBackground(Color.YELLOW);
         create.addActionListener(this);
         add(create);
 
         back = new JButton("Back");
-        back.setBounds(170, 370, 100, 30);
+        back.setBounds(170, 400, 100, 30);
         back.setBackground(Color.BLACK);
         back.setForeground(Color.WHITE);
         back.addActionListener(this);
         add(back);
 
-        setSize(400, 450);
+        setSize(400, 500);
         setResizable(false);
         setLocation(500, 180);
         setTitle("Sign Up");
         setLayout(null);
         setVisible(true);
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
+    public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource() == create)
+        if (e.getSource() == create) 
         {
             String sLoginAs = loginAsChoice.getSelectedItem();
             String sName = NameTextField.getText();
             String sUserName = UserNameTextField.getText();
-            // String sPassword = PasswordTextField.getPassword();
+            String sPassword = new String(PasswordTextField.getPassword());
             String sMeterNumber = MeterTextField.getText();
-        }
-        else if(e.getSource() == back)
+            String sEmployerId = EmployerIdTextField.getText();
+
+            try 
+            {
+            DataBases c = new DataBases();
+            String query = null;
+            query = "insert into Signup value('"+sMeterNumber+ "', '" +sUserName+"', '"+sPassword+"', '"+sName+"', '"+sLoginAs+"')";
+
+            c.statement.executeUpdate(query);
+
+            JOptionPane.showMessageDialog(null, "Account Created");
+            setVisible(false);
+            new Login();
+                              
+            } 
+            catch (Exception ex) 
+            {
+                ex.printStackTrace();
+            }
+        } 
+        else if (e.getSource() == back) 
         {
             setVisible(false);
             new Login();
